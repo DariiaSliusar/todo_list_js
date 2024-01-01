@@ -35,11 +35,46 @@ const addTask = () => {
     const deleteButtons = document.querySelectorAll(".delete");
     deleteButtons.forEach((button) => {
         button.onclick = () => {
-            button.parentNode.remove();
-            taskCount = -1;
-            displayCount(taskCount);
+        button.parentNode.remove();
+        taskCount -= 1;
+        displayCount(taskCount);
         };
     });
 
+    const editButtons = document.querySelectorAll(".edit");
+    editButtons.forEach((editBtn) => {
+        editBtn.onclick = (e) => {
+            let targetElement = e.target;
+            if (!(e.target.className == "edit")) {
+                targetElemnt = e.target.parentElement;
+            }
+            newTaskInput.value = targetElement.previousElementSibling?.innerText;
+            targetElement.parentNode.remove();
+            taskCount -= 1;
+            displayCount(taskCount);
+        };
+    });
+    const tasksCheck = document.querySelectorAll(".task-check");
+    tasksCheck.forEach((checkBox) => {
+        checkBox.onchange = () => {
+            checkBox.nextElementSibling.classList.toggle("completed");
+            if (checkBox.checked) {
+                taskCount -= 1;
+            } else {
+                taskCount += 1;
+            }
+            displayCount(taskCount);
+        };
+    });
+    taskCount += 1;
+    displayCount(taskCount);
+    newTaskInput.value = "";
 };
+
 addBtn.addEventListener("click", addTask);
+
+window.onload = () => {
+    taskCount = 0;
+    displayCount(taskCount);
+    newTaskInput.value = "";
+};
