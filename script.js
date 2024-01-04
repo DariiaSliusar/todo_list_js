@@ -2,7 +2,7 @@ const addBtn = document.querySelector("#add-btn");
 const newTaskInput = document.querySelector("#wrapper input");
 const tasksContainer = document.querySelector("#tasks");
 const error = document.getElementById("error");
-const countValue = document.querySelector("count-value");
+const countValue = document.querySelector(".count-value");
 let taskCount = 0;
 
 const displayCount = (taskCount) => {
@@ -46,12 +46,13 @@ const addTask = () => {
         editBtn.onclick = (e) => {
             let targetElement = e.target;
             if (!(e.target.className == "edit")) {
-                targetElemnt = e.target.parentElement;
+                targetElement = e.target.parentElement;
             }
             newTaskInput.value = targetElement.previousElementSibling?.innerText;
             targetElement.parentNode.remove();
             taskCount -= 1;
             displayCount(taskCount);
+            
         };
     });
     const tasksCheck = document.querySelectorAll(".task-check");
